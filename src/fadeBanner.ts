@@ -10,7 +10,8 @@ module Banner{
      * @interface IBannerOptions
      */
     interface IBannerOptions{
-        path: String
+        path: String;
+        opacity: Number
     }
 
     /**
@@ -20,10 +21,12 @@ module Banner{
     export class BannerOptions implements IBannerOptions{
 
         path: String = '';
+        opacity: Number = 0.5;
 
-        constructor(path:String){
+        constructor(path:String, opacity:Number){
 
             this.path = path;
+            this.opacity = opacity;
 
         }
 
@@ -45,7 +48,7 @@ module Banner{
             this.element = element;
             this.options = options;
 
-            if(!this.options.path && $(this.element).is('img')){
+            if(this.options.path === '' && $(this.element).is('img')){
 
                 this.options.path = $(this.element).attr('src');
 
@@ -67,7 +70,7 @@ module Banner{
 
             var id = this._generateUUID();
 
-            var canvas = '<canvas id="'+id+'" style="width:'+$(el).width()+'px;height:'+$(el).height()+'px;"></canvas>';
+            var canvas = '<canvas width="'+$(el).width()+'" height="'+$(el).height()+'" id="'+id+'" style="width:'+$(el).width()+'px;height:'+$(el).height()+'px;"></canvas>';
             $(el).after(canvas).remove();
 
             this.el = $('#'+id);
@@ -93,8 +96,8 @@ module Banner{
                 self.ctx.drawImage(this, 0, 0);
                 var rgb = self._getAverageRGB();
 
-                self.ctx.fillStyle = "rgba("+rgb.r+", "+rgb.g+", "+rgb.b+", 0.5)";
-                self.ctx.fillRect(0, 0, 500, 500);
+                self.ctx.fillStyle = "rgba("+rgb.r+", "+rgb.g+", "+rgb.b+", "+self.options.opacity+")";
+                self.ctx.fillRect(0, 0, $(self.el).width(), $(self.el).height());
 
             };
 
@@ -189,7 +192,7 @@ module Banner{
         Banner: function(opts){
 
             //defaults
-            var defaults: Banner.BannerOptions = new Banner.BannerOptions('');
+            var defaults: Banner.BannerOptions = new Banner.BannerOptions('', 0.4);
 
             var opts = $.extend(defaults, opts);
 

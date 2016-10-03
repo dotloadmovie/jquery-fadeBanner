@@ -10,9 +10,11 @@ var Banner;
      * @implements IBannerOptions
      */
     var BannerOptions = (function () {
-        function BannerOptions(path) {
+        function BannerOptions(path, opacity) {
             this.path = '';
+            this.opacity = 0.5;
             this.path = path;
+            this.opacity = opacity;
         }
         return BannerOptions;
     })();
@@ -24,7 +26,7 @@ var Banner;
         function FadeBanner(element, options) {
             this.element = element;
             this.options = options;
-            if (!this.options.path && $(this.element).is('img')) {
+            if (this.options.path === '' && $(this.element).is('img')) {
                 this.options.path = $(this.element).attr('src');
             }
             this.createCanvas(this.element);
@@ -38,7 +40,7 @@ var Banner;
          */
         FadeBanner.prototype.createCanvas = function (el) {
             var id = this._generateUUID();
-            var canvas = '<canvas id="' + id + '" style="width:' + $(el).width() + 'px;height:' + $(el).height() + 'px;"></canvas>';
+            var canvas = '<canvas width="' + $(el).width() + '" height="' + $(el).height() + '" id="' + id + '" style="width:' + $(el).width() + 'px;height:' + $(el).height() + 'px;"></canvas>';
             $(el).after(canvas).remove();
             this.el = $('#' + id);
             this.ctx = this.el[0].getContext('2d');
@@ -53,8 +55,8 @@ var Banner;
             img.onload = function () {
                 self.ctx.drawImage(this, 0, 0);
                 var rgb = self._getAverageRGB();
-                self.ctx.fillStyle = "rgba(" + rgb.r + ", " + rgb.g + ", " + rgb.b + ", 0.5)";
-                self.ctx.fillRect(0, 0, 500, 500);
+                self.ctx.fillStyle = "rgba(" + rgb.r + ", " + rgb.g + ", " + rgb.b + ", " + self.options.opacity + ")";
+                self.ctx.fillRect(0, 0, $(self.el).width(), $(self.el).height());
             };
             img.src = this.options.path.toString();
         };
@@ -119,7 +121,7 @@ var Banner;
     $.fn.extend({
         Banner: function (opts) {
             //defaults
-            var defaults = new Banner.BannerOptions('');
+            var defaults = new Banner.BannerOptions('', 0.4);
             var opts = $.extend(defaults, opts);
             return this.each(function () {
                 var o = opts;
