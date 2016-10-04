@@ -13,7 +13,7 @@ $('#element').fadeBanner({
 ```
 
 
-##options
+##Options
 
 It takes a pair of options:
 
