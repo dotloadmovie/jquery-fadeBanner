@@ -17,7 +17,7 @@ var Banner;
             this.opacity = opacity;
         }
         return BannerOptions;
-    })();
+    }());
     Banner.BannerOptions = BannerOptions;
     /**
      * @class FadeBanner
@@ -109,9 +109,9 @@ var Banner;
             });
         };
         return FadeBanner;
-    })();
+    }());
     Banner.FadeBanner = FadeBanner;
-})(Banner = exports.Banner || (exports.Banner = {}));
+})(Banner || (Banner = {}));
 /**
  * Base jQuery plugin wrapper
  */

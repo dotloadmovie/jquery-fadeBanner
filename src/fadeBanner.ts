@@ -1,7 +1,7 @@
 /// <reference path="defs/jquery.d.ts" />
 
 /**
- * @module: Banner
+ * @export: Banner
  *
  */
 export module Banner{
@@ -13,6 +13,7 @@ export module Banner{
         path: String;
         opacity: Number
     }
+
 
     /**
      * @class BannerOptions
