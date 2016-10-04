@@ -4,7 +4,7 @@
  * @export: Banner
  *
  */
-export export module Banner{
+export module Banner{
 
     /**
      * @interface IBannerOptions
