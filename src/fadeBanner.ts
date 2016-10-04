@@ -4,7 +4,7 @@
  * @module: Banner
  *
  */
-module Banner{
+export module Banner{
 
     /**
      * @interface IBannerOptions
@@ -181,27 +181,31 @@ module Banner{
 
 }
 
-
 /**
  * Base jQuery plugin wrapper
  */
-(function(window,$){
-    if(!$) return false;
 
-    $.fn.extend({
-        Banner: function(opts){
+try{
+    (function(window,$){
+        if(!$) return false;
 
-            //defaults
-            var defaults: Banner.BannerOptions = new Banner.BannerOptions('', 0.4);
+        $.fn.extend({
+            Banner: function(opts){
 
-            var opts = $.extend(defaults, opts);
+                //defaults
+                var defaults: Banner.BannerOptions = new Banner.BannerOptions('', 0.4);
 
-            return this.each(function(){
-                var o = opts;
-                var obj = $(this);
-                new Banner.FadeBanner(obj,o);
+                var opts = $.extend(defaults, opts);
 
-            });
-        }
-    });
-})(window, jQuery);
+                return this.each(function(){
+                    var o = opts;
+                    var obj = $(this);
+                    new Banner.FadeBanner(obj,o);
+
+                });
+            }
+        });
+    })(window, jQuery);
+
+}
+catch(e){}

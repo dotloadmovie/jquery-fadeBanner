@@ -1,4 +1,5 @@
 /// <reference path="defs/jquery.d.ts" />
+"use strict";
 /**
  * @module: Banner
  *
@@ -17,7 +18,7 @@ var Banner;
             this.opacity = opacity;
         }
         return BannerOptions;
-    })();
+    }());
     Banner.BannerOptions = BannerOptions;
     /**
      * @class FadeBanner
@@ -109,26 +110,28 @@ var Banner;
             });
         };
         return FadeBanner;
-    })();
+    }());
     Banner.FadeBanner = FadeBanner;
-})(Banner || (Banner = {}));
+})(Banner = exports.Banner || (exports.Banner = {}));
 /**
  * Base jQuery plugin wrapper
  */
-(function (window, $) {
-    if (!$)
-        return false;
-    $.fn.extend({
-        Banner: function (opts) {
-            //defaults
-            var defaults = new Banner.BannerOptions('', 0.4);
-            var opts = $.extend(defaults, opts);
-            return this.each(function () {
-                var o = opts;
-                var obj = $(this);
-                new Banner.FadeBanner(obj, o);
-            });
-        }
-    });
-})(window, jQuery);
-//# sourceMappingURL=fadeBanner.js.map
+try {
+    (function (window, $) {
+        if (!$)
+            return false;
+        $.fn.extend({
+            Banner: function (opts) {
+                //defaults
+                var defaults = new Banner.BannerOptions('', 0.4);
+                var opts = $.extend(defaults, opts);
+                return this.each(function () {
+                    var o = opts;
+                    var obj = $(this);
+                    new Banner.FadeBanner(obj, o);
+                });
+            }
+        });
+    })(window, jQuery);
+}
+catch (e) { }

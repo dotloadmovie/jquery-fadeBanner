@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "prepublish": "tsc --module commonjs index.ts",
+    "pretest": "tsc test/BannerTest.ts --module commonjs",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "typescript": "^2.0.3"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.0"
+  }
+}
